@@ -22,7 +22,7 @@ test.describe('Form Layouts page', () => {
 
     // locator assertion
     await expect(usingTheGridEmailInput).toHaveValue('test2@test.com');
-  });
+  })
   
   test('chap34 ラジオボタン', async({page}) => {
     const usingTheGridForm = page.locator('nb-card', {hasText: "Using the Grid"});
@@ -47,7 +47,7 @@ test.describe('Form Layouts page', () => {
     //await expect(radioStatus1).toBeFalsy();
     expect(radioStatus2).toBeTruthy();
     //await expect(usingTheGridForm.getByRole('radio', {name: "Option 2"})).toBeChecked();
-  });
+  })
   
   test('chap35 CheckBox', async({page}) => {
     await page.goto('http://localhost:4200');
@@ -68,7 +68,7 @@ test.describe('Form Layouts page', () => {
       await box.uncheck({force: true});
       expect(await box.isChecked()).toBeFalsy();
     }
-  });
+  })
 
   test('chap36 Lists and DropDown', async({page}) => {
     const dropDownMenu = page.locator('ngx-header nb-select');
@@ -105,7 +105,7 @@ test.describe('Form Layouts page', () => {
       //   await dropDownMenu.click();
       // }
     }
-  });
+  })
 
   test('chap37 Tooltips', async({page}) => {
     await page.getByText('Modal & Overlays').click();
@@ -117,7 +117,7 @@ test.describe('Form Layouts page', () => {
     page.getByRole('tooltip');
     const tooltip = await page.locator('nb-tooltip').textContent();
     expect(tooltip).toEqual('This is a tooltip');
-  });
+  })
 
   test('chap38 DialogBox', async({page}) => {
     await page.getByText('Tables & Data').click();
@@ -131,7 +131,7 @@ test.describe('Form Layouts page', () => {
     await page.getByRole('table').locator('tr', {hasText: "mdo@gmail.com"}).locator('.nb-trash').click();
     await expect(page.locator('table tr').first()).not.toHaveText('mdo@gmail.com');
 
-  });
+  })
 
   test('chap39 tables-01', async({page}) => {
     await page.getByText('Tables & Data').click();
@@ -180,8 +180,32 @@ test.describe('Form Layouts page', () => {
     const calendarInputField = page.getByPlaceholder('Form Picker');
     await calendarInputField.click();
 
-  });
+    let date = new Date();
+    date.setDate(date.getDate()+7);
+    const expectedDate = date.getDate().toString();
+    const expectedMonthShot = date.toLocaleString('En-US', {month: 'short'}); 
+    const expectedMonthLong = date.toLocaleString('En-US', {month: 'long'});
+    const expectedYear = date.getFullYear();
+    const dateToAssert = `${expectedMonthShot} ${expectedDate}, ${expectedYear}`;
 
+    // 完全一致 exact: true
+    await page.locator('[class="day-cell ng-star-inserted"]')
+      .getByText('8', {exact: true}).click();
+    await calendarInputField.click();
+
+    let calendarMonthAndYear = await page.locator('nb-calendar-view-mode').textContent();
+    const expectedMonthAndYear = `${expectedMonthLong} ${expectedYear}`;
+
+    while(!calendarMonthAndYear.includes(expectedMonthAndYear)) {
+      await page.locator('nb-calendar-pageable-navigation [data-name="chevron-right"]').click();
+      let calendarMonthAndYear = await page.locator('nb-calendar-view-mode').textContent();
+    }
+  
+    // 部分一致
+    await expect(calendarInputField).toHaveValue(/2024/);
+    await page.locator('[class="day-cell ng-star-inserted"]').getByText(expectedDate, {exact: true}).click();
+    await expect(calendarInputField).toHaveValue(dateToAssert);
+  });
 });
 
 

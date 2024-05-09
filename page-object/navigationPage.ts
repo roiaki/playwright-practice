@@ -1,8 +1,21 @@
+import { Locator, Page } from "@playwright/test";
 
 
 export class NavigationPage {
+  readonly page: Page;
+  // readonly formLayoutsMenuItem: Locator;
+  // readonly datePickerMenuItem: Locator;
+  // readonly smartTableMenuItem: Locator;
+  // readonly toastMenuItem: Locator;
+  // readonly tooltipMenuItem: Locator;
+
   constructor(page) {
     this.page = page;
+    // this.formLayoutsMenuItem = page.getByText('Form Layout');
+    // this.datePickerMenuItem = page.getByText('Datepicker');
+    // this.smartTableMenuItem = page.getByText('Datepicker');
+    // this.toastMenuItem = page.getByText('Toastr');
+    // this.tooltipMenuItem = page.getByText('Tooltips);
   }
 
   async formLayoutsPage() {
