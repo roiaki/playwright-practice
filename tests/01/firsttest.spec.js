@@ -30,7 +30,6 @@ test.describe('ケース１', () => {
 
 test.describe('ケース2', () => {
   test.beforeEach(async({page}) => {
- 
     await page.getByText('Forms').click();
   })
   

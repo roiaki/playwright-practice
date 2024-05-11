@@ -49,8 +49,6 @@ test.describe('Form Layouts page', () => {
     //await expect(usingTheGridForm.getByRole('radio', {name: "Option 2"})).toBeChecked();
   });
 
-
-  
   test('chap35 CheckBox', async({page}) => {
     await page.goto('http://localhost:4200');
     await page.getByText('Modal & Overlays').click();
@@ -209,16 +207,11 @@ test.describe('Form Layouts page', () => {
     await expect(calendarInputField).toHaveValue(dateToAssert);
   });
 
-  test.only('スクリーンショット', async({page}) => {
+  test('スクリーンショット', async({page}) => {
     const usingTheGridForm = page.locator('nb-card', {hasText: "Using the Grid"});
     await usingTheGridForm.getByRole('radio', {name: "Option 1"}).check({force: true});
     await expect(usingTheGridForm).toHaveScreenshot();
-
-
-
-
-  
-  })
+  });
 });
 
 
