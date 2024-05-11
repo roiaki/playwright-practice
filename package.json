@@ -3,12 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "sec05": " npx playwright test sec05.spec.js && npx playwright show-report",
+    "sec06": " npx playwright test sec06.spec.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.43.1",
     "@types/node": "^20.12.8"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^8.4.1"
   }
 }

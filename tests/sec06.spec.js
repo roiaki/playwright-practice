@@ -1,6 +1,7 @@
 import {test, expect} from '@playwright/test';
 import {NavigationPage} from '../page-object/navigationPage';
 import { FormLayoutsPage } from "../page-object/formLayoutsPage";
+import { faker } from "@faker-js/faker";
 
 test.beforeEach(async({page}) => {
   await page.goto('http://localhost:4200');
@@ -24,9 +25,26 @@ test('chap46 PageObject', async({page}) => {
 test('chap49 Parametrized Methods', async({page})  => {
   const navigateTo = new NavigationPage(page);
   const onFormLayoutsPage = new FormLayoutsPage(page);
+
+  const randomFullName = faker.person.fullName();
+  const randomEmail = `${randomFullName}${faker.number.int(100)}@test.com`;
+
   await navigateTo.formLayoutsPage();
-  await onFormLayoutsPage.submitUsingTheGridFormWithCredentialsAndSelectOption('test@test.com', 'testtest123', 'Option 1');
-  await onFormLayoutsPage.submitInlineFormWithNameAndCheckbox('test', 'test@test.com', true);
+  await onFormLayoutsPage.submitUsingTheGridFormWithCredentialsAndSelectOption(randomEmail, 'testtest123', 'Option 1');
+  await onFormLayoutsPage.submitInlineFormWithNameAndCheckbox(randomFullName, randomEmail, true);
+});
+
+test('chap43 Slider', async({page}) => {
+  const tempGauge = page.locator('[tabtitle="Temperature"] ngx-temperature-dragger circle');
+    await tempGauge.evaluate(node => {
+      node.setAttribute('cx', '232.630');
+      node.setAttribute('cy', '232.630');
+    })
+    await tempGauge.click();
+});
+
+test('chap53', async({page}) => {
+  
 });
 
 

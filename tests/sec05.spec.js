@@ -22,7 +22,7 @@ test.describe('Form Layouts page', () => {
 
     // locator assertion
     await expect(usingTheGridEmailInput).toHaveValue('test2@test.com');
-  })
+  });
   
   test('chap34 ラジオボタン', async({page}) => {
     const usingTheGridForm = page.locator('nb-card', {hasText: "Using the Grid"});
@@ -47,7 +47,9 @@ test.describe('Form Layouts page', () => {
     //await expect(radioStatus1).toBeFalsy();
     expect(radioStatus2).toBeTruthy();
     //await expect(usingTheGridForm.getByRole('radio', {name: "Option 2"})).toBeChecked();
-  })
+  });
+
+
   
   test('chap35 CheckBox', async({page}) => {
     await page.goto('http://localhost:4200');
@@ -68,7 +70,7 @@ test.describe('Form Layouts page', () => {
       await box.uncheck({force: true});
       expect(await box.isChecked()).toBeFalsy();
     }
-  })
+  });
 
   test('chap36 Lists and DropDown', async({page}) => {
     const dropDownMenu = page.locator('ngx-header nb-select');
@@ -105,7 +107,7 @@ test.describe('Form Layouts page', () => {
       //   await dropDownMenu.click();
       // }
     }
-  })
+  });
 
   test('chap37 Tooltips', async({page}) => {
     await page.getByText('Modal & Overlays').click();
@@ -117,7 +119,7 @@ test.describe('Form Layouts page', () => {
     page.getByRole('tooltip');
     const tooltip = await page.locator('nb-tooltip').textContent();
     expect(tooltip).toEqual('This is a tooltip');
-  })
+  });
 
   test('chap38 DialogBox', async({page}) => {
     await page.getByText('Tables & Data').click();
@@ -131,7 +133,7 @@ test.describe('Form Layouts page', () => {
     await page.getByRole('table').locator('tr', {hasText: "mdo@gmail.com"}).locator('.nb-trash').click();
     await expect(page.locator('table tr').first()).not.toHaveText('mdo@gmail.com');
 
-  })
+  });
 
   test('chap39 tables-01', async({page}) => {
     await page.getByText('Tables & Data').click();
@@ -206,6 +208,17 @@ test.describe('Form Layouts page', () => {
     await page.locator('[class="day-cell ng-star-inserted"]').getByText(expectedDate, {exact: true}).click();
     await expect(calendarInputField).toHaveValue(dateToAssert);
   });
+
+  test.only('スクリーンショット', async({page}) => {
+    const usingTheGridForm = page.locator('nb-card', {hasText: "Using the Grid"});
+    await usingTheGridForm.getByRole('radio', {name: "Option 1"}).check({force: true});
+    await expect(usingTheGridForm).toHaveScreenshot();
+
+
+
+
+  
+  })
 });
 
 
