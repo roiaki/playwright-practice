@@ -22,4 +22,5 @@ test.beforeEach(async ({ page }) => {
 test('has title', async ({ page }) => {
   await expect(page.locator('.navbar-brand')).toHaveText('conduit');
   await page.waitForTimeout(500);
+  
 });
