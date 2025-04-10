@@ -1,9 +1,10 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test.beforeEach(async ({page}) => {
-  await page.goto('https://conduit.bondaracademy.com/');
+test.beforeEach(async ({ page }) => {
+  await page.goto("https://conduit.bondaracademy.com/");
 });
 
-test('chap54', async({page}) => {
-  await expect(page.locator('.navbar-brand')).toHaveText('conduit');
+// Working with APIs
+test("chap54", async ({ page }) => {
+  await expect(page.locator(".navbar-brand")).toHaveText("conduit");
 });
